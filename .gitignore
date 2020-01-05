@@ -1,0 +1,7 @@
+__pycache__/
+*.py[cod]
+django_environment/
+geckodriver.exe
+geckodriver-v0.26.0-win64.zip
+geckodriver.log
+db.sqlite3
