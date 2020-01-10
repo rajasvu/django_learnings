@@ -34,7 +34,8 @@ class NewVisitorTest(unittest.TestCase):
         # "1: Buy peacock feathers" as an item in a to-do list
         table = self.browser.find_element_by_id('todo_list_table')
         todo_records = self.browser.find_elements_by_tag_name('tr')
-        self.assertEqual(any(todo_record.text == '1: Buy peacock feathers' for todo_record in todo_records))
+        self.assertTrue(any(todo_record.text == '1: Buy peacock feathers' for todo_record in todo_records),
+                        'New to-do item did not appear in the table')
         # There is still a text box inviting her to add another item.
         # She enters "Use peacock feathers to make a fly" (Edith is very methodical)
         # The page updates again, and now shows both items on her list
