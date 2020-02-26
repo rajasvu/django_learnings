@@ -15,8 +15,10 @@ class NewVisitorTest(unittest.TestCase):
         self.browser.quit()
 
     def check_for_row_in_table(self, item_to_check):
-        pass
-    
+        table = self.browser.find_element_by_id('todo_list_table')
+        todo_records = table.find_elements_by_tag_name('tr')
+        self.assertIn(item_to_check, [todo_record.text for todo_record in todo_records])
+
     def test_can_start_a_list_and_retrieve_it_later(self):
         # Edith has heard about a cool new online to-do app.
         # She goes to check out its homepage
@@ -35,9 +37,7 @@ class NewVisitorTest(unittest.TestCase):
         inputbox.send_keys(Keys.ENTER)
         time.sleep(1)
         # "1: Buy peacock feathers" as an item in a to-do list
-        table = self.browser.find_element_by_id('todo_list_table')
-        todo_records = table.find_elements_by_tag_name('tr')
-        self.assertIn('1: Buy peacock feathers', [todo_record.text for todo_record in todo_records])
+        self.check_for_row_in_table(item_to_check='1: Buy peacock feathers')
         # There is still a text box inviting her to add another item
         # She enters "Use peacock feathers to make a fly" (Edith is very methodical)
         inputbox = self.browser.find_element_by_id('todo_item')
@@ -46,10 +46,8 @@ class NewVisitorTest(unittest.TestCase):
         inputbox.send_keys(Keys.ENTER)
         time.sleep(1)
         # The page updates again, and now shows both items on her list
-        table = self.browser.find_element_by_id('todo_list_table')
-        new_todo_records = table.find_elements_by_tag_name('tr')
-        self.assertIn('1: Buy peacock feathers', [todo_record.text for todo_record in new_todo_records])
-        self.assertIn('1: Buy peacock feathers', [todo_record.text for todo_record in new_todo_records])
+        self.check_for_row_in_table(item_to_check='1: Buy peacock feathers')
+        self.check_for_row_in_table(item_to_check='2: Use peacock feathers to make a fly')
         # Edith wonders whether the site will remember her list.
         # Then she sees that the site has generated a unique URL for her -- there is some explanatory text to that effect.
         # She visits that URL - her to-do list is still there.
