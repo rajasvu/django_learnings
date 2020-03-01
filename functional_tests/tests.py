@@ -74,7 +74,7 @@ class NewVisitorTest(LiveServerTestCase):
         self.browser = webdriver.Firefox()
         # Francis visits the page and there is no sign of Edith's list
         self.browser.get(self.live_server_url)
-        page_text = self.browser.find_elements_by_tag_name('body').text
+        page_text = self.browser.find_element_by_tag_name('body').text
         self.assertNotIn('Buy peacock feathers', page_text, 'Ediths list observed in the browser')
         # Francis starts new list by entering a new item
         inputbox = self.browser.find_element_by_id('todo_item')
