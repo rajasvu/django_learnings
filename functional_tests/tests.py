@@ -86,8 +86,8 @@ class NewVisitorTest(LiveServerTestCase):
         self.assertRegex(francis_url, '/lists/.+', 'URL mismatch for Francis')
         self.assertNotEqual(edith_url, francis_url, 'Same URL used for both the users')
         # Again there is no trace of Edith's list
-        page_text = self.browser.find_elements_by_tag_name('body').text
+        page_text = self.browser.find_element_by_tag_name('body').text
         self.assertNotIn('Buy peacock feathers', page_text, 'Ediths list observed in the browser')
-        self.assertIn('But milk', page_text, 'Expected content from Francis list is missing')
+        self.assertIn('Buy milk', page_text, 'Expected content from Francis list is missing')
         # Successfully evaluated the functionality
 

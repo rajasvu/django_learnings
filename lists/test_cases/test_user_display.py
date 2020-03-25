@@ -3,14 +3,29 @@ from lists.models import Item, List
 
 
 class ListViewTest(TestCase):
-    def test_displays_all_items(self):
-        list_ = List.objects.create()
-        Item.objects.create(text='Item1', list=list_)
-        Item.objects.create(text='Item2', list=list_)
-        response = self.client.get('/lists/the-only-list-in-the-world/')
-        self.assertContains(response, 'Item1')
-        self.assertContains(response, 'Item2')
-
     def test_uses_list_template(self):
-        response = self.client.get('/lists/the-only-list-in-the-world/')
+        list_ = List.objects.create()
+        response = self.client.get(f'/lists/{list_.id}/')
         self.assertTemplateUsed(response, 'list.html')
+
+    def test_displays_only_items_of_that_list(self):
+        expected_list = List.objects.create()
+        Item.objects.create(text='ExpectedItem1', list=expected_list)
+        Item.objects.create(text='ExpectedItem2', list=expected_list)
+
+        other_list = List.objects.create()
+        Item.objects.create(text='UnExpectedItem1', list=other_list)
+        Item.objects.create(text='UnExpectedItem2', list=other_list)
+        response = self.client.get(f'/lists/{expected_list.id}/')
+        self.assertContains(response, 'ExpectedItem1')
+        self.assertContains(response, 'ExpectedItem2')
+        self.assertNotContains(response, 'UnExpectedItem1')
+        self.assertNotContains(response, 'UnExpectedItem2')
+
+    def test_passes_correct_list_to_template(self):
+        fake_list = List.objects.create()
+        expected_list = List.objects.create()
+
+        response = self.client.get(f'/lists/{expected_list.id}/')
+        self.assertEqual(response.context['list'], expected_list)
+
