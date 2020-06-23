@@ -24,3 +24,7 @@ def add_item(request, list_id):
     Item.objects.create(text=request.POST['todo_text'], list=list_)
     return redirect(f'/lists/{list_.id}/')
 
+
+def load_sample(request):
+    return render(request, 'sample-app.html')
+

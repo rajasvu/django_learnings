@@ -1,0 +1,24 @@
+<!doctype html>
+{% load static %}
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>AngularSample</title>
+  <base href="/sample-app">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+</head>
+<body>
+  <app-root></app-root>
+  <script src="{% static 'angular-sample/runtime-es2015.js' %}" type="module"></script>
+  <script src="{% static 'angular-sample/runtime-es5.js' %}" nomodule defer></script>
+  <script src="{% static 'angular-sample/polyfills-es5.js' %}" nomodule defer></script>
+  <script src="{% static 'angular-sample/polyfills-es2015.js' %}" type="module"></script>
+  <script src="{% static 'angular-sample/styles-es2015.js' %}" type="module"></script>
+  <script src="{% static 'angular-sample/styles-es5.js' %}" type="module"></script>
+  <script src="{% static 'angular-sample/vendor-es2015.js' %}" type="module"></script>
+  <script src="{% static 'angular-sample/vendor-es5.js' %}" type="module"></script>
+  <script src="{% static 'angular-sample/main-es2015.js' %}" type="module"></script>
+  <script src="{% static 'angular-sample/main-es5.js' %}" type="module"></script>
+</body>
+</html>
